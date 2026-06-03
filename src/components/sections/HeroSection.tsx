@@ -3,7 +3,9 @@ import { useTypewriter } from "@/hooks/useTypewriter";
 import { heroRoles, stats, siteConfig } from "@/lib/data";
 import { CodeRainBackground } from "@/components/ui/CodeRainBackground";
 
-function gs(id: string) { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); }
+function gs(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function HeroSection() {
   const typed = useTypewriter(heroRoles);
@@ -11,71 +13,359 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "7rem 2.5rem 5rem", background: "var(--bg)" }}
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+        padding: "7rem 2.5rem 5rem",
+        background: "var(--bg)",
+      }}
     >
+      {/* Dot grid only — clean, no gradients */}
       <CodeRainBackground />
 
-      <div style={{ position: "relative", zIndex: 2, maxWidth: 880, width: "100%", textAlign: "center" }}>
-
-        {/* Header eyebrow */}
-        <div style={{ animation: "fadeUp 0.7s ease both" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "var(--white)", border: "1px solid var(--border2)", color: "var(--ink2)", padding: "0.35rem 0.9rem", borderRadius: 20, fontSize: "0.78rem", fontWeight: 500, marginBottom: "0.8rem", fontFamily: "var(--font-body)" }}>
-            <span className="pulse-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", flexShrink: 0 }} />
-            Open to opportunities · Lahore 🇵🇰
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: 900,
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        {/* Eyebrow badges */}
+        <div style={{ animation: "fadeUp 0.6s ease both" }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              background: "rgba(0,255,136,0.06)",
+              border: "1px solid rgba(0,255,136,0.2)",
+              color: "var(--green)",
+              padding: "0.3rem 1rem",
+              borderRadius: 20,
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              marginBottom: "0.6rem",
+              fontFamily: "var(--font-mono)",
+            }}
+          >
+            <span
+              className="pulse-dot"
+              style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: "var(--green)", flexShrink: 0,
+                boxShadow: "0 0 8px var(--green)",
+              }}
+            />
+            Available for opportunities · Lahore 🇵🇰
           </div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(180,120,10,0.07)", border: "1px solid rgba(180,120,10,0.2)", color: "#7c4a00", padding: "0.28rem 0.75rem", borderRadius: 20, fontSize: "0.72rem", fontWeight: 500, marginBottom: "1.6rem", marginLeft: "0.4rem", fontFamily: "var(--font-body)" }}>
+
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              background: "rgba(255,215,0,0.07)",
+              border: "1px solid rgba(255,215,0,0.18)",
+              color: "#ffd700",
+              padding: "0.28rem 0.8rem",
+              borderRadius: 20,
+              fontSize: "0.72rem",
+              fontWeight: 500,
+              marginBottom: "2rem",
+              marginLeft: "0.5rem",
+              fontFamily: "var(--font-mono)",
+            }}
+          >
             👁 {siteConfig.viewerCount} recruiters viewed this week
           </div>
         </div>
 
-        {/* Name */}
-        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(3.5rem,9vw,7rem)", fontWeight: 800, letterSpacing: "-0.045em", lineHeight: 0.93, color: "var(--ink)", marginBottom: "0.35rem", animation: "fadeUp 0.7s 0.08s ease both" }}>
-          Hey<br />
-          I&apos;m <span style={{ color: "var(--blue)" }}>Furqan,</span>
-        </h1>
-        <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem,4vw,2.8rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "var(--ink2)", marginBottom: "1rem", animation: "fadeUp 0.7s 0.12s ease both" }}>
-          Full-Stack Developer
-        </h2>
+        {/* Main headline */}
+        <div style={{ animation: "fadeUp 0.7s 0.1s ease both", opacity: 0, animationFillMode: "forwards" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.8rem",
+              color: "var(--ink4)",
+              letterSpacing: "0.15em",
+              marginBottom: "0.5rem",
+            }}
+          >
+            {"// hello world"}
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(3.5rem,9vw,7.5rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.045em",
+              lineHeight: 0.92,
+              color: "var(--ink)",
+              marginBottom: "0.4rem",
+            }}
+          >
+            Hey, I&apos;m{" "}
+            <span
+              className="glitch-text"
+              data-text="Furqan"
+              style={{
+                fontFamily: "var(--font-heading)",
+                background: "var(--grad-hero)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Furqan
+            </span>
+          </h1>
+        </div>
+
+        {/* Role */}
+        <div style={{ animation: "fadeUp 0.7s 0.18s ease both", opacity: 0, animationFillMode: "forwards" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.4rem,3.5vw,2.6rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "var(--ink2)",
+              marginBottom: "0.9rem",
+            }}
+          >
+            Full-Stack{" "}
+            <span style={{ color: "var(--cyan)", textShadow: "0 0 20px rgba(0,212,255,0.5)" }}>
+              Developer
+            </span>
+          </h2>
+        </div>
 
         {/* Typewriter */}
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "clamp(0.85rem,1.8vw,1rem)", color: "var(--ink3)", marginBottom: "1.4rem", letterSpacing: "0.01em", animation: "fadeUp 0.7s 0.18s ease both", minHeight: "1.5rem" }}>
-          {typed}<span className="cursor-blink" aria-hidden="true" />
-        </p>
+        <div style={{ animation: "fadeUp 0.7s 0.24s ease both", opacity: 0, animationFillMode: "forwards" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "clamp(0.85rem,1.6vw,1rem)",
+              color: "var(--ink3)",
+              marginBottom: "1.2rem",
+              letterSpacing: "0.02em",
+              minHeight: "1.5rem",
+            }}
+          >
+            <span style={{ color: "var(--cyan)", opacity: 0.6 }}>{">"} </span>
+            {typed}
+            <span className="cursor-blink" aria-hidden="true" />
+          </p>
+        </div>
 
         {/* Description */}
-        <p style={{ fontSize: "1.05rem", color: "var(--ink2)", maxWidth: 560, margin: "0 auto 2.25rem", lineHeight: 1.85, animation: "fadeUp 0.7s 0.24s ease both", fontFamily: "var(--font-body)" }}>
-          I help businesses grow by crafting amazing web experiences. If you&apos;re looking for a developer who loves to get stuff done — let&apos;s talk.
-        </p>
+        <div style={{ animation: "fadeUp 0.7s 0.3s ease both", opacity: 0, animationFillMode: "forwards" }}>
+          <p
+            style={{
+              fontSize: "1rem",
+              color: "var(--ink3)",
+              maxWidth: 560,
+              margin: "0 auto 2.5rem",
+              lineHeight: 1.85,
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            I craft high-performance web products that drive real business results.
+            5+ years turning complex problems into elegant, scalable solutions —{" "}
+            <span style={{ color: "var(--ink2)" }}>from Lahore to the global stage.</span>
+          </p>
+        </div>
 
         {/* CTAs */}
-        <div style={{ display: "flex", gap: "0.8rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "3.5rem", animation: "fadeUp 0.7s 0.3s ease both" }}>
-          <button onClick={() => gs("projects")} style={{ background: "var(--blue)", color: "#fff", border: "none", padding: "0.8rem 1.75rem", borderRadius: 7, fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.25s", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLButtonElement).style.background = "#0d3db5"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = ""; (e.currentTarget as HTMLButtonElement).style.background = "var(--blue)"; }}>
-            Download CV →
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            marginBottom: "4rem",
+            animation: "fadeUp 0.7s 0.38s ease both",
+            opacity: 0,
+            animationFillMode: "forwards",
+          }}
+        >
+          <button
+            onClick={() => gs("projects")}
+            className="btn-primary text-sm font-bold px-7 py-3 rounded-lg overflow-hidden relative"
+            style={{ fontFamily: "var(--font-body)", letterSpacing: "0.02em" }}
+          >
+            <span className="relative z-10">View Projects →</span>
           </button>
-          <button onClick={() => gs("contact")} style={{ background: "transparent", color: "var(--blue)", border: "1.5px solid var(--blue)", padding: "0.78rem 1.75rem", borderRadius: 7, fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.25s" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--blue)"; (e.currentTarget as HTMLButtonElement).style.color = "#fff"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "var(--blue)"; }}>
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline text-sm font-semibold px-7 py-3 rounded-lg"
+            style={{ fontFamily: "var(--font-body)", textDecoration: "none", letterSpacing: "0.02em" }}
+          >
+            Download CV ↓
+          </a>
+
+          <button
+            onClick={() => gs("contact")}
+            className="text-sm font-semibold px-7 py-3 rounded-lg transition-all"
+            style={{
+              fontFamily: "var(--font-body)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "var(--ink2)",
+              letterSpacing: "0.02em",
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.borderColor = "rgba(168,85,247,0.4)";
+              el.style.color = "var(--purple)";
+              el.style.background = "rgba(168,85,247,0.08)";
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.borderColor = "rgba(255,255,255,0.1)";
+              el.style.color = "var(--ink2)";
+              el.style.background = "rgba(255,255,255,0.04)";
+            }}
+          >
             Let&apos;s Talk 💬
           </button>
         </div>
 
-        {/* Stats */}
-        <div style={{ display: "flex", flexWrap: "wrap", border: "1px solid var(--border)", borderRadius: 10, background: "var(--white)", overflow: "hidden", maxWidth: 580, margin: "0 auto", animation: "fadeUp 0.7s 0.38s ease both" }}>
-          {stats.map((s, i) => (
-            <div key={s.label} style={{ flex: 1, minWidth: 110, padding: "1.25rem 1rem", textAlign: "center", borderRight: i < stats.length - 1 ? "1px solid var(--border)" : "none" }}>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: "1.8rem", fontWeight: 800, color: "var(--ink)", letterSpacing: "-0.04em", lineHeight: 1 }}>{s.num}</div>
-              <div style={{ fontSize: "0.73rem", color: "var(--ink4)", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "0.3rem", fontFamily: "var(--font-body)" }}>{s.label}</div>
-            </div>
-          ))}
+        {/* Stats bar */}
+        <div
+          style={{
+            animation: "fadeUp 0.7s 0.46s ease both",
+            opacity: 0,
+            animationFillMode: "forwards",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              border: "1px solid rgba(0,212,255,0.12)",
+              borderRadius: 12,
+              background: "rgba(255,255,255,0.02)",
+              backdropFilter: "blur(10px)",
+              overflow: "hidden",
+              maxWidth: 580,
+              margin: "0 auto",
+              boxShadow: "0 0 40px rgba(0,212,255,0.05), inset 0 0 40px rgba(0,212,255,0.02)",
+            }}
+          >
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                style={{
+                  flex: 1,
+                  minWidth: 110,
+                  padding: "1.4rem 1rem",
+                  textAlign: "center",
+                  borderRight: i < stats.length - 1 ? "1px solid rgba(0,212,255,0.08)" : "none",
+                  transition: "background 0.3s",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLDivElement).style.background = "rgba(0,212,255,0.05)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "1.8rem",
+                    fontWeight: 700,
+                    background: "var(--grad-accent)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    lineHeight: 1,
+                  }}
+                >
+                  {s.num}
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.68rem",
+                    color: "var(--ink4)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    marginTop: "0.35rem",
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Scroll hint */}
-      <div style={{ position: "absolute", bottom: "2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", zIndex: 2 }}>
-        <span style={{ fontSize: "0.68rem", color: "var(--ink4)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>Scroll</span>
-        <div className="scroll-hint-line" style={{ width: 1, height: 34, background: "linear-gradient(var(--ink3),transparent)" }} />
+        {/* Tech marquee strip */}
+        <div
+          style={{
+            marginTop: "3rem",
+            animation: "fadeIn 1s 0.8s ease both",
+            opacity: 0,
+            animationFillMode: "forwards",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.65rem",
+              color: "var(--ink4)",
+              letterSpacing: "0.15em",
+              marginBottom: "0.8rem",
+              textTransform: "uppercase",
+            }}
+          >
+            {"// stack"}
+          </p>
+          <div style={{ overflow: "hidden", maskImage: "linear-gradient(90deg, transparent, black 15%, black 85%, transparent)" }}>
+            <div
+              className="marquee-track"
+              style={{
+                display: "flex",
+                gap: "1.5rem",
+                width: "max-content",
+              }}
+            >
+              {[
+                "React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI",
+                "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "LangChain",
+                "React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI",
+                "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "LangChain",
+              ].map((tech, i) => (
+                <span
+                  key={i}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.75rem",
+                    color: "var(--ink4)",
+                    padding: "0.3rem 0.8rem",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    borderRadius: 20,
+                    whiteSpace: "nowrap",
+                    background: "rgba(255,255,255,0.02)",
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

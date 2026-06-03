@@ -1,24 +1,73 @@
 "use client";
 import { useEffect, useRef } from "react";
-const SNIPS = ["const","async","await","return","import","export","function","useState","useEffect","=>",".then(",".catch(","try {","interface","type","extends","class","new ","null","true","false","fetch(","db.query(","router.","schema.","Promise<T>","map(","filter(","reduce(","export default","prisma.","zod.","<T>","void","async fn"];
+
 export function CodeRainBackground() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
-    const c = ref.current; if (!c) return;
-    for (let i = 0; i < 20; i++) {
-      const col = document.createElement("div");
-      col.className = "code-rain-col";
-      col.style.left = `${i * 5.2}%`;
-      col.style.animationDuration = `${12 + Math.random() * 18}s`;
-      col.style.animationDelay = `${-Math.random() * 20}s`;
-      for (let j = 0; j < 40; j++) {
-        const d = document.createElement("div");
-        d.textContent = SNIPS[Math.floor(Math.random() * SNIPS.length)];
-        col.appendChild(d);
+    const canvas = ref.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const DOT_SPACING = 36;
+    let frame = 0;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cols = Math.ceil(canvas.width / DOT_SPACING) + 1;
+      const rows = Math.ceil(canvas.height / DOT_SPACING) + 1;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = c * DOT_SPACING;
+          const y = r * DOT_SPACING;
+
+          // Gentle breathing pulse — no gradient, just opacity
+          const wave = Math.sin(frame * 0.008 + r * 0.4 + c * 0.3) * 0.5 + 0.5;
+          const opacity = 0.06 + wave * 0.06;
+
+          ctx.beginPath();
+          ctx.arc(x, y, 1, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 212, 255, ${opacity})`;
+          ctx.fill();
+        }
       }
-      c.appendChild(col);
-    }
-    return () => { if (c) c.innerHTML = ""; };
+
+      frame++;
+      animId = requestAnimationFrame(draw);
+    };
+
+    let animId = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
-  return <div ref={ref} aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none z-0" />;
+
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+        opacity: 0.7,
+      }}
+    />
+  );
 }

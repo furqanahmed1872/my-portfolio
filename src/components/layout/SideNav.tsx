@@ -33,11 +33,14 @@ export function SideNav() {
         <a
           key={s.id}
           href={`#${s.id}`}
-          onClick={e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" }); }}
+          onClick={e => {
+            e.preventDefault();
+            document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
+          }}
           className={active === s.id ? "active" : ""}
           title={s.label}
           aria-label={s.label}
-          style={{ fontSize: s.icon.length > 1 ? "0.7rem" : "0.85rem" }}
+          style={{ fontSize: s.icon.length > 1 ? "0.65rem" : "0.8rem" }}
         >
           {s.icon}
         </a>

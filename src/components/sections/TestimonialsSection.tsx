@@ -8,18 +8,41 @@ export function TestimonialsSection() {
     <section
       id="testimonials"
       style={{
-        padding: "5.5rem 2.5rem",
-        background: "linear-gradient(135deg,#e4f5ef 0%,#dff2ea 100%)",
+        padding: "6rem 2.5rem",
+        background: "var(--bg2)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: 0, left: "50%",
+          transform: "translateX(-50%)",
+          width: 800, height: 400,
+          background: "radial-gradient(ellipse, rgba(0,212,255,0.03) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 1080, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div className="rv">
-          <SectionHeader tag="// client_voices" title={<>What clients say</>} />
+          <SectionHeader
+            tag="// client_voices"
+            title={
+              <>
+                What clients{" "}
+                <span className="gradient-text">say</span>
+              </>
+            }
+          />
         </div>
+
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: "1.2rem",
             marginTop: "3rem",
           }}
@@ -29,44 +52,62 @@ export function TestimonialsSection() {
               key={t.name}
               className={`rv rv${i + 1}`}
               style={{
-                background: "var(--white)",
-                border: "1px solid var(--border)",
-                borderRadius: 14,
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: 16,
                 padding: "1.75rem",
                 display: "flex",
                 flexDirection: "column",
                 transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
                 cursor: "default",
+                position: "relative",
+                overflow: "hidden",
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = "translateY(-4px)";
-                el.style.boxShadow = "0 12px 36px rgba(14,12,10,0.09)";
+                el.style.transform = "translateY(-5px)";
+                el.style.boxShadow = "0 16px 48px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.06)";
+                el.style.borderColor = "rgba(0,212,255,0.15)";
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 const el = e.currentTarget as HTMLDivElement;
                 el.style.transform = "";
                 el.style.boxShadow = "";
+                el.style.borderColor = "rgba(255,255,255,0.06)";
               }}
             >
+              {/* Top accent */}
               <div
                 style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "2.5rem",
+                  position: "absolute",
+                  top: 0, left: 0, right: 0,
+                  height: 1,
+                  background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent)",
+                }}
+              />
+
+              {/* Quote mark */}
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "3rem",
                   lineHeight: 1,
-                  color: "rgba(13,126,98,0.35)",
-                  marginBottom: "0.65rem",
-                  fontWeight: 800,
+                  color: "var(--cyan)",
+                  marginBottom: "0.6rem",
+                  fontWeight: 900,
+                  opacity: 0.2,
                 }}
               >
                 &ldquo;
               </div>
+
+              {/* Quote text */}
               <p
                 style={{
                   color: "var(--ink2)",
-                  fontSize: "0.9rem",
+                  fontSize: "0.88rem",
                   lineHeight: 1.85,
-                  marginBottom: "1.4rem",
+                  marginBottom: "1.5rem",
                   fontStyle: "italic",
                   flex: 1,
                   fontFamily: "var(--font-body)",
@@ -74,13 +115,13 @@ export function TestimonialsSection() {
               >
                 {t.quote}
               </p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}
-              >
+
+              {/* Attribution */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <div
                   style={{
-                    width: 38,
-                    height: 38,
+                    width: 40,
+                    height: 40,
                     borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
@@ -89,9 +130,10 @@ export function TestimonialsSection() {
                     fontWeight: 700,
                     fontSize: "0.8rem",
                     flexShrink: 0,
-                    background: t.avatarBg,
+                    background: `${t.avatarColor}15`,
                     color: t.avatarColor,
-                    border: "1px solid var(--border)",
+                    border: `1px solid ${t.avatarColor}30`,
+                    boxShadow: `0 0 12px ${t.avatarColor}15`,
                   }}
                 >
                   {t.initials}
@@ -100,7 +142,7 @@ export function TestimonialsSection() {
                   <div
                     style={{
                       fontWeight: 600,
-                      fontSize: "0.88rem",
+                      fontSize: "0.86rem",
                       color: "var(--ink)",
                       fontFamily: "var(--font-body)",
                     }}
@@ -109,9 +151,9 @@ export function TestimonialsSection() {
                   </div>
                   <div
                     style={{
-                      fontSize: "0.76rem",
+                      fontSize: "0.74rem",
                       color: "var(--ink4)",
-                      fontFamily: "var(--font-body)",
+                      fontFamily: "var(--font-mono)",
                     }}
                   >
                     {t.role}

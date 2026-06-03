@@ -8,11 +8,24 @@ export function ExperienceSection() {
     <section
       id="experience"
       style={{
-        padding: "5.5rem 2.5rem",
-        background: "linear-gradient(135deg,#fdf6ec 0%,#faf3e8 100%)",
+        padding: "6rem 2.5rem",
+        background: "var(--bg2)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0, left: 0,
+          width: 500, height: 500,
+          background: "radial-gradient(ellipse, rgba(0,212,255,0.03) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 1080, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div className="rv">
           <SectionHeader
             tag="// work_experience"
@@ -20,111 +33,177 @@ export function ExperienceSection() {
               <>
                 5 years building
                 <br />
-                at scale
+                <span className="gradient-text">at scale</span>
               </>
             }
           />
         </div>
+
+        {/* Timeline */}
         <div
           style={{
             position: "relative",
-            marginTop: "3rem",
+            marginTop: "3.5rem",
             paddingLeft: "1.5rem",
-            borderLeft: "1px solid var(--border2)",
           }}
         >
+          {/* Vertical line */}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 1,
+              background: "linear-gradient(to bottom, var(--cyan), var(--blue), var(--purple), transparent)",
+              opacity: 0.2,
+            }}
+          />
+
           {experiences.map((exp, i) => (
             <div
               key={exp.company}
               className={`tl-item rv rv${i + 1}`}
               style={{
                 position: "relative",
-                marginBottom: "2.75rem",
-                paddingLeft: "2rem",
+                marginBottom: "3rem",
+                paddingLeft: "2.5rem",
               }}
             >
+              {/* Timeline dot */}
               <div
                 className="tl-dot"
                 style={{
                   position: "absolute",
                   left: "-1.85rem",
-                  top: 5,
-                  width: 10,
-                  height: 10,
+                  top: 6,
+                  width: 12,
+                  height: 12,
                   borderRadius: "50%",
                   border: `2px solid ${exp.accentColor}`,
-                  background: "var(--white)",
+                  background: "var(--bg2)",
+                  boxShadow: `0 0 10px ${exp.accentColor}50`,
+                  zIndex: 1,
                 }}
               />
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.08em",
-                  fontWeight: 500,
-                  marginBottom: "0.4rem",
-                  textTransform: "uppercase",
-                  color: exp.accentColor,
-                }}
-              >
-                {exp.period}
-              </p>
-              <h3
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "1.2rem",
-                  fontWeight: 700,
-                  color: "var(--ink)",
-                  letterSpacing: "-0.025em",
-                  marginBottom: "0.2rem",
-                }}
-              >
-                {exp.role}
-              </h3>
-              <p
-                style={{
-                  color: "var(--ink3)",
-                  fontSize: "0.88rem",
-                  marginBottom: "0.85rem",
-                  fontFamily: "var(--font-body)",
-                }}
-              >
-                {exp.company} · {exp.location}
-              </p>
+
+              {/* Card */}
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.45rem",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  borderLeft: `2px solid ${exp.accentColor}`,
+                  borderRadius: "0 14px 14px 0",
+                  padding: "1.75rem 2rem",
+                  transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "rgba(255,255,255,0.04)";
+                  el.style.transform = "translateX(4px)";
+                  el.style.boxShadow = `0 8px 40px rgba(0,0,0,0.3), 0 0 20px ${exp.accentColor}10`;
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "rgba(255,255,255,0.02)";
+                  el.style.transform = "";
+                  el.style.boxShadow = "";
                 }}
               >
-                {exp.achievements.map((a, j) => (
-                  <div
-                    key={j}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: "0.6rem",
-                      fontSize: "0.88rem",
-                      color: "var(--ink2)",
-                      lineHeight: 1.65,
-                      fontFamily: "var(--font-body)",
-                    }}
-                  >
-                    <span
+                {/* Corner glow */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0, right: 0,
+                    width: 120, height: 120,
+                    background: `radial-gradient(ellipse at 100% 0%, ${exp.accentColor}08, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+
+                {/* Period */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.12em",
+                    fontWeight: 500,
+                    marginBottom: "0.5rem",
+                    textTransform: "uppercase",
+                    color: exp.accentColor,
+                    opacity: 0.9,
+                  }}
+                >
+                  {exp.period}
+                </p>
+
+                {/* Role */}
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "1.25rem",
+                    fontWeight: 700,
+                    color: "var(--ink)",
+                    letterSpacing: "-0.025em",
+                    marginBottom: "0.25rem",
+                  }}
+                >
+                  {exp.role}
+                </h3>
+
+                {/* Company */}
+                <p
+                  style={{
+                    color: "var(--ink3)",
+                    fontSize: "0.86rem",
+                    marginBottom: "1rem",
+                    fontFamily: "var(--font-body)",
+                  }}
+                >
+                  {exp.company}
+                  <span style={{ color: "var(--ink4)" }}> · {exp.location}</span>
+                </p>
+
+                {/* Achievements */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  {exp.achievements.map((a, j) => (
+                    <div
+                      key={j}
                       style={{
-                        color: "var(--blue)",
-                        flexShrink: 0,
-                        fontWeight: 600,
-                        marginTop: 1,
-                        fontSize: "0.8rem",
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "0.65rem",
+                        fontSize: "0.86rem",
+                        color: "var(--ink3)",
+                        lineHeight: 1.65,
+                        fontFamily: "var(--font-body)",
                       }}
                     >
-                      →
-                    </span>
-                    <span dangerouslySetInnerHTML={{ __html: a }} />
-                  </div>
-                ))}
+                      <span
+                        style={{
+                          color: "var(--cyan)",
+                          flexShrink: 0,
+                          fontWeight: 600,
+                          marginTop: 1,
+                          fontSize: "0.75rem",
+                          fontFamily: "var(--font-mono)",
+                          opacity: 0.8,
+                        }}
+                      >
+                        →
+                      </span>
+                      <span dangerouslySetInnerHTML={{ __html: a }} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
