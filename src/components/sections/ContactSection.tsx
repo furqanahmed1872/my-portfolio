@@ -7,11 +7,19 @@ type State = "idle" | "loading" | "success" | "error";
 
 export function ContactSection() {
   const [state, setState] = useState<State>("idle");
-  const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
   const [err, setErr] = useState("");
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const onChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
 
   const submit = async () => {
     setErr("");
@@ -51,52 +59,55 @@ export function ContactSection() {
     transition: "border-color 0.2s, box-shadow 0.2s",
   };
 
-  const focusStyle = {
-    onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const el = e.target as HTMLElement;
-      el.style.borderColor = "rgba(0,212,255,0.5)";
-      el.style.boxShadow = "0 0 0 2px rgba(0,212,255,0.08), 0 0 16px rgba(0,212,255,0.1)";
-    },
-    onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const el = e.target as HTMLElement;
-      el.style.borderColor = "rgba(0,212,255,0.12)";
-      el.style.boxShadow = "";
-    },
+  const onFocus = (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    e.target.style.borderColor = "rgba(0,212,255,0.5)";
+    e.target.style.boxShadow = "0 0 0 2px rgba(0,212,255,0.08)";
+  };
+  const onBlur = (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    e.target.style.borderColor = "rgba(0,212,255,0.12)";
+    e.target.style.boxShadow = "";
   };
 
   return (
     <section
       id="contact"
       style={{
-        padding: "6rem 2.5rem",
+        padding: "5rem 1.25rem",
         background: "var(--bg)",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Ambient glows */}
       <div
         aria-hidden="true"
         style={{
           position: "absolute",
-          bottom: "-20%", left: "20%",
-          width: 600, height: 600,
-          background: "radial-gradient(ellipse, rgba(0,212,255,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: "10%", right: "5%",
-          width: 400, height: 400,
-          background: "radial-gradient(ellipse, rgba(168,85,247,0.04) 0%, transparent 70%)",
+          bottom: "-20%",
+          left: "20%",
+          width: 600,
+          height: 600,
+          background:
+            "radial-gradient(ellipse, rgba(0,212,255,0.04) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
 
-      <div style={{ maxWidth: 1080, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div
+        style={{
+          maxWidth: 1080,
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         <div className="rv">
           <SectionHeader
             tag="// contact"
@@ -110,25 +121,18 @@ export function ContactSection() {
           />
         </div>
 
-        <div
-          className="rv"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.2fr",
-            gap: "4rem",
-            alignItems: "start",
-            marginTop: "3rem",
-          }}
-        >
-          {/* Left: Info */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+        <div className="rv contact-grid" style={{ marginTop: "3rem" }}>
+          {/* Left */}
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+          >
             <div>
               <h3
                 style={{
                   fontFamily: "var(--font-heading)",
-                  fontSize: "clamp(1.6rem,2.8vw,2.2rem)",
+                  fontSize: "clamp(1.5rem,3vw,2.2rem)",
                   fontWeight: 800,
-                  lineHeight: 1.15,
+                  lineHeight: 1.2,
                   letterSpacing: "-0.04em",
                   color: "var(--ink)",
                 }}
@@ -136,7 +140,12 @@ export function ContactSection() {
                 Have a project?
                 <br />
                 Let&apos;s{" "}
-                <span style={{ color: "var(--cyan)", textShadow: "0 0 20px rgba(0,212,255,0.5)" }}>
+                <span
+                  style={{
+                    color: "var(--cyan)",
+                    textShadow: "0 0 20px rgba(0,212,255,0.5)",
+                  }}
+                >
                   make it real.
                 </span>
               </h3>
@@ -149,12 +158,11 @@ export function ContactSection() {
                   fontFamily: "var(--font-body)",
                 }}
               >
-                Whether you need a full-stack engineer or a technical partner to bring
-                your product to life — I&apos;m ready.
+                Whether you need a full-stack engineer or a technical partner to
+                bring your product to life — I&apos;m ready.
               </p>
             </div>
 
-            {/* Availability */}
             <div
               style={{
                 display: "flex",
@@ -172,17 +180,20 @@ export function ContactSection() {
               <span
                 className="pulse-dot"
                 style={{
-                  width: 7, height: 7, borderRadius: "50%",
-                  background: "var(--green)", flexShrink: 0,
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "var(--green)",
+                  flexShrink: 0,
                   boxShadow: "0 0 8px var(--green)",
                 }}
               />
               <span>
-                <strong>Currently open</strong> for full-time roles &amp; freelance projects
+                <strong>Currently open</strong> for full-time roles &amp;
+                freelance projects
               </span>
             </div>
 
-            {/* Social links */}
             <div>
               <p
                 style={{
@@ -198,12 +209,12 @@ export function ContactSection() {
               </p>
               <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 {[
-                  { l: "GH", h: socialLinks.github,    t: "GitHub" },
-                  { l: "in", h: socialLinks.linkedin,   t: "LinkedIn" },
-                  { l: "𝕏",  h: socialLinks.twitter,   t: "Twitter" },
-                  { l: "IG", h: socialLinks.instagram,  t: "Instagram" },
-                  { l: "@",  h: socialLinks.email,      t: "Email" },
-                ].map(s => (
+                  { l: "GH", h: socialLinks.github, t: "GitHub" },
+                  { l: "in", h: socialLinks.linkedin, t: "LinkedIn" },
+                  { l: "𝕏", h: socialLinks.twitter, t: "Twitter" },
+                  { l: "IG", h: socialLinks.instagram, t: "Instagram" },
+                  { l: "@", h: socialLinks.email, t: "Email" },
+                ].map((s) => (
                   <a
                     key={s.l}
                     href={s.h}
@@ -211,7 +222,8 @@ export function ContactSection() {
                     rel="noopener noreferrer"
                     title={s.t}
                     style={{
-                      width: 44, height: 44,
+                      width: 44,
+                      height: 44,
                       background: "rgba(255,255,255,0.03)",
                       border: "1px solid rgba(0,212,255,0.1)",
                       borderRadius: 10,
@@ -225,20 +237,18 @@ export function ContactSection() {
                       textDecoration: "none",
                       transition: "all 0.25s",
                     }}
-                    onMouseEnter={e => {
+                    onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLAnchorElement;
                       el.style.background = "rgba(0,212,255,0.08)";
                       el.style.color = "var(--cyan)";
                       el.style.borderColor = "rgba(0,212,255,0.3)";
-                      el.style.boxShadow = "0 0 16px rgba(0,212,255,0.15)";
                       el.style.transform = "translateY(-2px)";
                     }}
-                    onMouseLeave={e => {
+                    onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLAnchorElement;
                       el.style.background = "rgba(255,255,255,0.03)";
                       el.style.color = "var(--ink3)";
                       el.style.borderColor = "rgba(0,212,255,0.1)";
-                      el.style.boxShadow = "";
                       el.style.transform = "";
                     }}
                   >
@@ -248,7 +258,6 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Contact details */}
             <div
               style={{
                 display: "flex",
@@ -262,7 +271,7 @@ export function ContactSection() {
                 `📧 ${siteConfig.email}`,
                 `📍 ${siteConfig.location} (${siteConfig.timezone})`,
                 "⚡ Responds within 24 hours",
-              ].map(m => (
+              ].map((m) => (
                 <p
                   key={m}
                   style={{
@@ -283,7 +292,7 @@ export function ContactSection() {
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(0,212,255,0.1)",
               borderRadius: 16,
-              padding: "2rem",
+              padding: "1.75rem",
               display: "flex",
               flexDirection: "column",
               gap: "1rem",
@@ -291,33 +300,25 @@ export function ContactSection() {
               overflow: "hidden",
             }}
           >
-            {/* Corner bracket decoration */}
             <div className="corner-bracket tl" />
             <div className="corner-bracket tr" />
             <div className="corner-bracket bl" />
             <div className="corner-bracket br" />
-
-            {/* Top glow */}
             <div
               style={{
                 position: "absolute",
-                top: 0, left: 0, right: 0,
+                top: 0,
+                left: 0,
+                right: 0,
                 height: 1,
-                background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.4), transparent)",
+                background:
+                  "linear-gradient(90deg, transparent, rgba(0,212,255,0.4), transparent)",
               }}
             />
 
             {state === "success" ? (
               <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
-                <div
-                  style={{
-                    fontSize: "3rem",
-                    marginBottom: "1rem",
-                    filter: "drop-shadow(0 0 16px rgba(0,212,255,0.5))",
-                  }}
-                >
-                  ✅
-                </div>
+                <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>✅</div>
                 <div
                   style={{
                     fontFamily: "var(--font-heading)",
@@ -341,12 +342,29 @@ export function ContactSection() {
               </div>
             ) : (
               <>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.9rem" }}>
+                <div className="form-row">
                   {[
-                    { label: "Name",  name: "name",  type: "text",  ph: "Ahmed Raza" },
-                    { label: "Email", name: "email", type: "email", ph: "ahmed@company.com" },
-                  ].map(f => (
-                    <div key={f.name} style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    {
+                      label: "Name",
+                      name: "name",
+                      type: "text",
+                      ph: "Ahmed Raza",
+                    },
+                    {
+                      label: "Email",
+                      name: "email",
+                      type: "email",
+                      ph: "ahmed@company.com",
+                    },
+                  ].map((f) => (
+                    <div
+                      key={f.name}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.4rem",
+                      }}
+                    >
                       <label
                         style={{
                           fontFamily: "var(--font-mono)",
@@ -366,13 +384,20 @@ export function ContactSection() {
                         value={form[f.name as keyof typeof form]}
                         onChange={onChange}
                         style={inputStyle}
-                        {...focusStyle}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
                       />
                     </div>
                   ))}
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.4rem",
+                  }}
+                >
                   <label
                     style={{
                       fontFamily: "var(--font-mono)",
@@ -389,23 +414,38 @@ export function ContactSection() {
                     name="service"
                     value={form.service}
                     onChange={onChange}
-                    style={{ ...inputStyle, cursor: "pointer", appearance: "none" }}
-                    {...focusStyle}
+                    style={{
+                      ...inputStyle,
+                      cursor: "pointer",
+                      appearance: "none",
+                    }}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                   >
-                    <option value="" style={{ background: "var(--bg2)" }}>Select a service...</option>
+                    <option value="" style={{ background: "var(--bg2)" }}>
+                      Select a service...
+                    </option>
                     {[
                       "Full-Stack Development",
                       "Frontend Development",
                       "Backend / API Development",
                       "AI / ML Integration",
                       "Technical Consulting",
-                    ].map(o => (
-                      <option key={o} style={{ background: "var(--bg2)" }}>{o}</option>
+                    ].map((o) => (
+                      <option key={o} style={{ background: "var(--bg2)" }}>
+                        {o}
+                      </option>
                     ))}
                   </select>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.4rem",
+                  }}
+                >
                   <label
                     style={{
                       fontFamily: "var(--font-mono)",
@@ -424,8 +464,13 @@ export function ContactSection() {
                     value={form.message}
                     onChange={onChange}
                     rows={5}
-                    style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
-                    {...focusStyle}
+                    style={{
+                      ...inputStyle,
+                      minHeight: 110,
+                      resize: "vertical",
+                    }}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                   />
                 </div>
 
